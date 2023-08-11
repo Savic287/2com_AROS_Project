@@ -101,7 +101,7 @@ int main(int argc, char *argv[]){
 
 		bool bye = (strcmp(string,"bye") == 0);
                 if(bye){
-                         sem_post(sem_seco);
+                         sem_post(sem_firs);
                          sem_close(sem_firs);
                          sem_close(sem_seco);
                          detach_memory_block(b);

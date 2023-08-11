@@ -82,7 +82,6 @@ int main(void){
 
 			        return 0;
 
-				//break;
                         }
 
 		printf("\nMy answer: ");
