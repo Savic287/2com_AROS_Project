@@ -11,7 +11,6 @@
 #define SIZE 4096
 #define IPC_RESULT_ERROR (-1)
 #define NAME "firstcom.c"
-
 #define SEM_FIRST "/myfirstcom"
 #define SEM_SECOND "/mysecondcom"
 
@@ -50,6 +49,17 @@ bool destroy_memory_block(char *filename){
 	return (shmctl(shared_block_id, IPC_RMID, NULL) != IPC_RESULT_ERROR);
 }
 
+void unosStringa(char s[]) {
+
+	int brojac = 0;
+	char znak;
+	do {
+		znak = getchar();
+		s[brojac++] = znak;
+	} while (znak != '\n');
+	s[brojac-1] = '\0';
+}
+
 int main(void){
 
 	char string[50];
@@ -70,7 +80,7 @@ int main(void){
         while(1){
                 sem_wait(sem_firs);
                 if(strlen(b)>0){
-                        printf("Other: \"%s\"\n", b);
+                        printf("Other: \"%s\"", b);
                         bool done = (strcmp(b,"bye") == 0);
                         b[0] = 0;
                         if(done){
@@ -85,7 +95,8 @@ int main(void){
                         }
 
 		printf("\nMy answer: ");
-		scanf("%s", string);
+		//scanf("%s", string);
+		unosStringa(string);
 		sprintf(b, "%s", string);
 
 		 bool bye = (strcmp(string,"bye") == 0);

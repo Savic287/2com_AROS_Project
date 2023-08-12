@@ -49,6 +49,17 @@ bool destroy_memory_block(char *filename){
 	return (shmctl(shared_block_id, IPC_RMID, NULL) != IPC_RESULT_ERROR);
 }
 
+void unosStringa(char s[]) {
+
+        int brojac = 0;
+        char znak;
+        do {
+            	znak = getchar();
+                s[brojac++] = znak;
+        } while (znak != '\n');
+        s[brojac-1] = '\0';
+}
+
 int main(int argc, char *argv[]){
 
 
@@ -68,7 +79,7 @@ int main(int argc, char *argv[]){
 
 		sem_wait(sem_seco);
 
-		printf("Me: \"%s\"\n", argv[1]);
+		printf("\nMe: \"%s\"\n", argv[1]);
 		sprintf(b, "%s", argv[1]);
 
 		bool bye = (strcmp(argv[1],"bye") == 0);
@@ -88,7 +99,7 @@ int main(int argc, char *argv[]){
 	while(1){
 		sem_wait(sem_seco);
 		if(strlen(b)>0){
-                        printf("Other: \"%s\"\n", b);
+                        printf("Other: \"%s\"", b);
                         bool done = (strcmp(b,"bye") == 0);
                         b[0] = 0;
                         if(done){
@@ -96,7 +107,8 @@ int main(int argc, char *argv[]){
                         }
 
 		printf("\nMe: ");
-                scanf("%s", string);
+		unosStringa(string);
+                //scanf("%s", string);
                 sprintf(b, "%s", string);
 
 		bool bye = (strcmp(string,"bye") == 0);
